@@ -1,40 +1,42 @@
 package org.grid.algorithms;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SingleLinkedListTest {
 
-	@Test
-	public void singleLinkedListInvertTest() {
-		SingleLinkedList<Integer> list = new SingleLinkedList<>();
-		list.add(1);
-		list.add(2);
-		list.add(3);
-		Assert.assertEquals(Integer.valueOf(1), list.get(0));
-		Assert.assertEquals(Integer.valueOf(2), list.get(1));
-		Assert.assertEquals(Integer.valueOf(3), list.get(2));
-		list.invert();
-		Assert.assertEquals(Integer.valueOf(3), list.get(0));
-		Assert.assertEquals(Integer.valueOf(2), list.get(1));
-		Assert.assertEquals(Integer.valueOf(1), list.get(2));
-	}
+    @Test
+    void singleLinkedListInvertTest() {
+        var list = new SingleLinkedList<Integer>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        assertThat(list.get(0)).isEqualTo(1);
+        assertThat(list.get(1)).isEqualTo(2);
+        assertThat(list.get(2)).isEqualTo(3);
+        list.invert();
+        assertThat(list.get(0)).isEqualTo(3);
+        assertThat(list.get(1)).isEqualTo(2);
+        assertThat(list.get(2)).isEqualTo(1);
+    }
 
-	@Test(expected = IndexOutOfBoundsException.class)
-	public void singleLinkedListIndexOutOfBoundsTest() {
-		SingleLinkedList<Integer> list = new SingleLinkedList<>();
-		list.add(1);
-		list.add(2);
-		list.add(3);
-		list.get(3);
-	}
+    @Test
+    public void singleLinkedListIndexOutOfBoundsTest() {
+        var list = new SingleLinkedList<Integer>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(3));
+    }
 
-	@Test(expected = IllegalArgumentException.class)
-	public void singleLinkedListIllegalArgumentExceptionTest() {
-		SingleLinkedList<Integer> list = new SingleLinkedList<>();
-		list.add(1);
-		list.add(2);
-		list.add(3);
-		list.get(-3);
-	}
+    @Test
+    public void singleLinkedListIllegalArgumentExceptionTest() {
+        var list = new SingleLinkedList<Integer>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        assertThrows(IllegalArgumentException.class, () -> list.get(-3));
+    }
 }

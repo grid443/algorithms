@@ -1,26 +1,28 @@
 package org.grid.algorithms;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * TODO
+ * Count the number one island in the matrix
  */
 public class MaxMatrixIsland {
+
     @Test
     public void squareMatrixText() {
-        int [][] squareMatrix = {
+        int[][] squareMatrix = {
                 {1, 1, 0, 0},
                 {0, 1, 1, 0},
                 {0, 0, 1, 0},
                 {1, 0, 0, 0}
         };
-        Assert.assertEquals(5, connectedCell(squareMatrix));
+        assertThat(connectedCell(squareMatrix)).isEqualTo(5);
     }
 
     @Test
     public void rectangularMatrixText() {
-        int [][] rectangularMatrix = {
+        int[][] rectangularMatrix = {
                 {0, 0, 0, 1, 0},
                 {1, 0, 0, 1, 0},
                 {0, 1, 0, 1, 0},
@@ -29,7 +31,7 @@ public class MaxMatrixIsland {
                 {1, 1, 0, 0, 1},
                 {0, 1, 0, 1, 0},
         };
-        Assert.assertEquals(7, connectedCell(rectangularMatrix));
+        assertThat(connectedCell(rectangularMatrix)).isEqualTo(7);
     }
 
     private int connectedCell(int[][] matrix) {

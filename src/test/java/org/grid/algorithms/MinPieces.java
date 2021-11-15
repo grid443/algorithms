@@ -1,26 +1,29 @@
 package org.grid.algorithms;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * You are give two paper strips. On each strip numbers (1,2,...,N) are written in random order.
  * Cut the original paper strip into several pieces and rearrange those pieces to form the desired sequence.
- *
+ * <p>
  * Write the function, that efficiently with respect to time used, returns the minimum number
  * of cut pieces needed to perform the desired operation.
- *
+ * <p>
  * For example, the following code should return 3 because the pieces used should be (1), (4,3) and (2)
- *  int[] original = new int[]{1, 4, 3, 2};
- *  int[] desired = new int[]{1, 2, 4, 3};
- *  stripsCount(original, desired);
+ * int[] original = new int[]{1, 4, 3, 2};
+ * int[] desired = new int[]{1, 2, 4, 3};
+ * stripsCount(original, desired);
  */
 public class MinPieces {
+
     @Test
-    public void test() {
+    void test() {
         int[] original = new int[]{1, 4, 3, 2, 5, 6, 7, 8, 9};
         int[] desired = new int[]{9, 1, 2, 4, 3, 5, 6, 7, 8};
-        Assert.assertEquals(5, stripsCount(original, desired));
+        assertThat(stripsCount(original, desired)).isEqualTo(5);
     }
 
     private int stripsCount(int[] original, int[] desired) {

@@ -1,23 +1,25 @@
 package org.grid.algorithms;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SortedArrayTest {
 
     @Test
-    public void binarySearchTest() {
-        SortedArray sortedArray = new SortedArray(new int[]{1, 2, 4, 6, 7, 20, 1990, 2000});
-        Assert.assertEquals(4, sortedArray.binarySearch(7));
-        Assert.assertEquals(0, sortedArray.binarySearch(1));
-        Assert.assertEquals(7, sortedArray.binarySearch(2000));
-        Assert.assertEquals(-1, sortedArray.binarySearch(0));
-        Assert.assertEquals(-1, sortedArray.binarySearch(2001));
-        Assert.assertEquals(-1, sortedArray.binarySearch(8));
+    void binarySearchTest() {
+        var sortedArray = new SortedArray(new int[]{1, 2, 4, 6, 7, 20, 1990, 2000});
+        assertThat(sortedArray.binarySearch(7)).isEqualTo(4);
+        assertThat(sortedArray.binarySearch(1)).isEqualTo(0);
+        assertThat(sortedArray.binarySearch(2000)).isEqualTo(7);
+        assertThat(sortedArray.binarySearch(0)).isEqualTo(-1);
+        assertThat(sortedArray.binarySearch(2001)).isEqualTo(-1);
+        assertThat(sortedArray.binarySearch(8)).isEqualTo(-1);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void sortedArrayUnsortedTest() {
-        new SortedArray(new int[]{1, 3, 2});
+    @Test
+    void sortedArrayUnsortedTest() {
+        assertThrows(IllegalArgumentException.class, () -> new SortedArray(new int[]{1, 3, 2}));
     }
 }

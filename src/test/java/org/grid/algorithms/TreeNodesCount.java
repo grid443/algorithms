@@ -1,7 +1,8 @@
 package org.grid.algorithms;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * The tree is represented by an array {@code nodes}
@@ -11,8 +12,8 @@ import org.junit.Test;
 public class TreeNodesCount {
 
     @Test
-    public void test() {
-        Assert.assertEquals(2, internalNodesCount(new int[]{1, 3, 1, -1, 3}));
+    void test() {
+        assertThat(internalNodesCount(new int[]{1, 3, 1, -1, 3})).isEqualTo(2);
     }
 
     private int internalNodesCount(int[] nodes) {
