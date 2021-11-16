@@ -1,7 +1,13 @@
 package org.grid.algorithms;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static java.util.Collections.emptyList;
+import static org.grid.algorithms.BinarySearchTree.TraverseType.IN_ORDER;
+import static org.grid.algorithms.BinarySearchTree.TraverseType.POST_ORDER;
+import static org.grid.algorithms.BinarySearchTree.TraverseType.PRE_ORDER;
 
 public class BinarySearchTree<T extends Comparable<T>> {
 
@@ -103,6 +109,56 @@ public class BinarySearchTree<T extends Comparable<T>> {
             currentNode = currentNode.left;
         }
         return currentNode.value;
+    }
+
+    public List<T> traverse(TraverseType type) {
+        if (root == null) {
+            return emptyList();
+        }
+        final var result = new ArrayList<T>();
+        if (IN_ORDER.equals(type)) {
+            traverseInOrderInternal(root, result);
+        } else if (PRE_ORDER.equals(type)) {
+            traversePreOrderInternal(root, result);
+        } else if (POST_ORDER.equals(type)) {
+            traversePostOrderInternal(root, result);
+        } else {
+            throw new IllegalArgumentException("Unknown traverse type " + type);
+        }
+        return result;
+    }
+
+    private void traverseInOrderInternal(Node<T> node, List<T> result) {
+        if (node == null) {
+            return;
+        }
+        traverseInOrderInternal(node.left, result);
+        result.add(node.value);
+        traverseInOrderInternal(node.right, result);
+    }
+
+    private void traversePreOrderInternal(Node<T> node, List<T> result) {
+        if (node == null) {
+            return;
+        }
+        result.add(node.value);
+        traversePreOrderInternal(node.left, result);
+        traversePreOrderInternal(node.right, result);
+    }
+
+    private void traversePostOrderInternal(Node<T> node, List<T> result) {
+        if (node == null) {
+            return;
+        }
+        traversePostOrderInternal(node.left, result);
+        traversePostOrderInternal(node.right, result);
+        result.add(node.value);
+    }
+
+    public enum TraverseType {
+        IN_ORDER,
+        PRE_ORDER,
+        POST_ORDER
     }
 
     private static class Node<T extends Comparable<T>> {

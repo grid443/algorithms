@@ -4,6 +4,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.grid.algorithms.BinarySearchTree.TraverseType.IN_ORDER;
+import static org.grid.algorithms.BinarySearchTree.TraverseType.POST_ORDER;
+import static org.grid.algorithms.BinarySearchTree.TraverseType.PRE_ORDER;
 
 public class BinarySearchTreeTest {
 
@@ -42,6 +45,27 @@ public class BinarySearchTreeTest {
         assertThat(bst.contains(5)).isFalse();
         bst.remove(1);
         assertThat(bst.contains(1)).isFalse();
+    }
+
+    @Test
+    void traverseInOrderTest() {
+        var bst = new BinarySearchTree<>(List.of(4, 2, 3, 3, 5, 1, 8, 3));
+        var inOrder = bst.traverse(IN_ORDER);
+        assertThat(inOrder).isEqualTo(List.of(1, 2, 3, 3, 3, 4, 5 ,8));
+    }
+
+    @Test
+    void traversePreOrderTest() {
+        var bst = new BinarySearchTree<>(List.of(4, 2, 3, 3, 5, 1, 8, 3));
+        var inOrder = bst.traverse(PRE_ORDER);
+        assertThat(inOrder).isEqualTo(List.of(4, 2, 1, 3, 3, 3, 5, 8));
+    }
+
+    @Test
+    void traversePostOrderTest() {
+        var bst = new BinarySearchTree<>(List.of(4, 2, 3, 3, 5, 1, 8, 3));
+        var inOrder = bst.traverse(POST_ORDER);
+        assertThat(inOrder).isEqualTo(List.of(1, 3, 3, 3, 2, 8, 5, 4));
     }
 
     private <T extends Comparable<T>> void checkBstContainsAll(BinarySearchTree<T> bst, List<T> expected) {
