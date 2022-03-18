@@ -2,7 +2,6 @@ package org.grid.algorithms;
 
 import org.junit.jupiter.api.Test;
 
-import static java.lang.Math.ceil;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -94,7 +93,7 @@ public class ShiftedArraySearch {
         int rightIndex = arrLength - 1;
         while (leftIndex <= rightIndex) {
             double halfDifference = ((double) rightIndex - leftIndex) / 2;
-            int middleIndex = leftIndex + (int) ceil(halfDifference);
+            int middleIndex = leftIndex + ceil(halfDifference);
             int middleValue = shiftArr[middleIndex];
             if (middleIndex == 0 || middleValue < shiftArr[middleIndex - 1]) {
                 return middleIndex;
@@ -105,5 +104,14 @@ public class ShiftedArraySearch {
             }
         }
         return 0;
+    }
+
+    private static int ceil(double value) {
+        int intValue = (int) value;
+        if (value == (double) intValue) {
+            return intValue;
+        } else {
+            return intValue + 1;
+        }
     }
 }
