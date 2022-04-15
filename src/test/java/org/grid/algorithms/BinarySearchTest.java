@@ -99,6 +99,44 @@ public class BinarySearchTest {
                 arguments(new int[]{MIN_VALUE, 0, 1, 2, 3, 4, MAX_VALUE}, MAX_VALUE, -1)
         );
     }
+
+    @MethodSource("findSkippedNumberVariants")
+    @ParameterizedTest
+    void testFindSkippedNumber(int[] arr, int expectedResult) {
+        assertThat(findSkippedNumber(arr)).isEqualTo(expectedResult);
+    }
+
+    private static int findSkippedNumber(int[] arr) {
+        int leftIndex = 0;
+        int rightIndex = arr.length - 1;
+        while (leftIndex <= rightIndex) {
+            int middleIndex = leftIndex + (rightIndex - leftIndex) / 2;
+            int middleValue = arr[middleIndex];
+            int previousIndex = middleIndex - 1;
+            if (middleIndex < middleValue && (middleIndex == 0 || arr[previousIndex] == previousIndex)) {
+               return middleIndex;
+            } else if (middleIndex == middleValue) {
+                leftIndex = leftIndex + 1;
+            } else {
+                rightIndex = rightIndex - 1;
+            }
+        }
+        return -1;
+    }
+
+    private static Stream<Arguments> findSkippedNumberVariants() {
+        return Stream.of(
+                arguments(new int[]{}, -1),
+                arguments(new int[]{0}, -1),
+                arguments(new int[]{1}, 0),
+                arguments(new int[]{0, 1}, -1),
+                arguments(new int[]{0, 2}, 1),
+                arguments(new int[]{1, 2}, 0),
+                arguments(new int[]{0, 1, 2, 3, 4, 5, 7}, 6)
+        );
+    }
+
+
 }
 
 
