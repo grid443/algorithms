@@ -27,15 +27,21 @@ public class ArrayBinaryHeap {
         int currentIndex = 0;
         int leftChildIndex = 1;
         int rightChildIndex = 2;
-        int minElementIndex = (rightChildIndex >= length) || (values[leftChildIndex] < values[rightChildIndex]) ? leftChildIndex : rightChildIndex;
+        int minElementIndex = minChildElementIndex(leftChildIndex, rightChildIndex);
         while (minElementIndex < length && values[minElementIndex] < values[currentIndex]) {
             swapElements(minElementIndex, currentIndex);
             currentIndex = minElementIndex;
             leftChildIndex = (currentIndex * 2) + 1;
             rightChildIndex = (currentIndex * 2) + 2;
-            minElementIndex = (rightChildIndex >= length) || (values[leftChildIndex] < values[rightChildIndex]) ? leftChildIndex : rightChildIndex;
+            minElementIndex = minChildElementIndex(leftChildIndex, rightChildIndex);
         }
         return minElement;
+    }
+
+    private int minChildElementIndex(int leftChildIndex, int rightChildIndex) {
+        return (rightChildIndex >= length) || (values[leftChildIndex] < values[rightChildIndex])
+                ? leftChildIndex
+                : rightChildIndex;
     }
 
     public void addAll(int[] elements) {
@@ -59,10 +65,7 @@ public class ArrayBinaryHeap {
 
     @Override
     public String toString() {
-        return stream(values)
-                .limit(length)
-                .mapToObj(String::valueOf)
-                .collect(joining(",", "[", "]"));
+        return stream(values).limit(length).mapToObj(String::valueOf).collect(joining(",", "[", "]"));
     }
 
     public int size() {
