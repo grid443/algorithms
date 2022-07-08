@@ -7,11 +7,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.grid.algorithms.ArrayBinaryHeap.heapSort;
+import static org.grid.algorithms.ArrayBinaryHeap.inPlaceReverseHeapSort;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 
-class ArrayBinaryHeapTest {
+class ArrayBinaryHeapTest implements SortedArrayTestData {
 
     @ParameterizedTest
     @MethodSource("heap")
@@ -27,6 +29,26 @@ class ArrayBinaryHeapTest {
         assertThat(heap.isEmpty()).isTrue();
         final var exception = assertThrows(IllegalStateException.class, heap::removeMin);
         assertThat(exception).hasMessage("empty heap");
+    }
+
+    @ParameterizedTest
+    @MethodSource("sortedArrays")
+    void should_sort_array(int[] arr, int[] sortedArr) {
+        // when
+        heapSort(arr);
+
+        // then
+        assertThat(arr).isEqualTo(sortedArr);
+    }
+
+    @ParameterizedTest
+    @MethodSource("reverseSortedArrays")
+    void should_sort_array_in_reverse_order(int[] arr, int[] sortedArr) {
+        // when
+        inPlaceReverseHeapSort(arr);
+
+        // then
+        assertThat(arr).isEqualTo(sortedArr);
     }
 
     private static Stream<Arguments> heap() {
